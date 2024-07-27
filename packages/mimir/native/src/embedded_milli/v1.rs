@@ -254,15 +254,19 @@ impl super::EmbeddedMilli<Index> for EmbeddedMilli {
             synonyms: index
                 .synonyms(&rtxn)?
                 .into_iter()
-                .map(|(word, synonyms)| {
-                    (
-                        word[0].clone(),
-                        synonyms
-                            .iter()
-                            .flat_map(|v| v.iter())
-                            .map(String::from)
-                            .collect(),
-                    )
+                .filter_map(|(word, synonyms)| {
+                    if word.is_empty() {
+                        None  // Skip empty words
+                    } else {
+                        Some((
+                            word[0].clone(),
+                            synonyms
+                                .iter()
+                                .flat_map(|v| v.iter())
+                                .map(String::from)
+                                .collect(),
+                        ))
+                    }
                 })
                 .map(|(word, synonyms)| Synonyms { word, synonyms })
                 .collect(),
