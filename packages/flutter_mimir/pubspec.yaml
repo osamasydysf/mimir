@@ -15,7 +15,11 @@ dependencies:
   flutter:
     sdk: flutter
   meta: ^1.9.1
-  mimir: ^0.0.2
+  mimir:
+    git:
+      url: https://github.com/osamasydysf/mimir.git
+      path: packages/mimir
+      ref: osama_dev
   path: ^1.8.3
   path_provider: ^2.0.15
 
